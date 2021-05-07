@@ -7,6 +7,7 @@ const ChatFeed = (props) => {
 	//~ destructuring
 	const { chats, activeChat, userName, messages } = props;
 
+	//* current chat
 	const chat = chats && chats[activeChat];
 
 	const renderReadReceipts = (message, isMyMessage) => {
@@ -62,6 +63,12 @@ const ChatFeed = (props) => {
 		});
 	};
 
+	const logout = () => {
+		localStorage.setItem("username", "");
+		localStorage.setItem("password", "");
+		window.location.reload();
+	};
+
 	if (!chat) return <div className="">Loading...</div>;
 
 	return (
@@ -75,6 +82,9 @@ const ChatFeed = (props) => {
 			<div style={{ height: "100px" }}></div>
 			<div className="message-form-container">
 				<MessageForm {...props} chatId={activeChat} />
+			</div>
+			<div className="log-out" onClick={logout}>
+				Sign Out
 			</div>
 		</div>
 	);

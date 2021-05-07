@@ -305,3 +305,27 @@
 	text-align: center;
 	margin-top: 20px;
 }
+
+.log-out {
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	border: #7554a0 solid 2px;
+	border-radius: 1rem;
+	padding: 1.3vh 2.3vw;
+	cursor: pointer;
+	background-color: #7554a0;
+	color: white;
+	z-index: 10;
+}
+
+.log-out:hover {
+	color: #7554a0;
+	background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+	.log-out {
+		bottom: 91%;
+	}
+}
