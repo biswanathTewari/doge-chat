@@ -2,7 +2,7 @@
 import MyMessage from "./MyMessage";
 import TheirMessage from "./TheirMessage";
 import MessageForm from "./MessageForm";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const ChatFeed = (props) => {
 	//~ destructuring
@@ -12,6 +12,11 @@ const ChatFeed = (props) => {
 	const chat = chats && chats[activeChat];
 
 	const dummyRef = useRef();
+
+	useEffect(() => {
+		//* scrolling to the bottom
+		dummyRef.current.scrollIntoView({ behavior: "smooth" });
+	}, [messages]);
 
 	const renderReadReceipts = (message, isMyMessage) => {
 		return chat.people.map((person, index) => {
@@ -39,9 +44,6 @@ const ChatFeed = (props) => {
 			const message = messages[key];
 			const lastMessagekey = index === 0 ? null : keys[index - 1];
 			const isMyMessage = userName === message.sender.username;
-
-			//* scrolling to the bottom
-			dummyRef.current.scrollIntoView({ behavior: "smooth" });
 
 			return (
 				<div key={`msg_${index}`} style={{ width: "100%" }}>
@@ -88,7 +90,7 @@ const ChatFeed = (props) => {
 			{renderMessages()}
 			<div ref={dummyRef} style={{ height: "100px" }}></div>
 			<div className="message-form-container">
-				<MessageForm {...props} chatId={activeChat} />
+				<MessageForm {...props} chatId={activeChat} dummyRef={dummyRef} />
 			</div>
 			<div className="log-out" onClick={logout}>
 				Sign Out
