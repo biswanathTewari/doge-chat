@@ -15,7 +15,8 @@ const ChatFeed = (props) => {
 
 	useEffect(() => {
 		//* scrolling to the bottom
-		dummyRef.current.scrollIntoView({ behavior: "smooth" });
+		dummyRef.current &&
+			dummyRef.current.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
 
 	const renderReadReceipts = (message, isMyMessage) => {

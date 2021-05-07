@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const LoginForm = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [username, setUsername] = useState("doge");
+	const [password, setPassword] = useState("dogechat");
 	const [error, setError] = useState("");
 
 	const handleSubmit = async (e) => {
