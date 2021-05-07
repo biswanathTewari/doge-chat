@@ -2,6 +2,7 @@
 import MyMessage from "./MyMessage";
 import TheirMessage from "./TheirMessage";
 import MessageForm from "./MessageForm";
+import { useRef } from "react";
 
 const ChatFeed = (props) => {
 	//~ destructuring
@@ -9,6 +10,8 @@ const ChatFeed = (props) => {
 
 	//* current chat
 	const chat = chats && chats[activeChat];
+
+	const dummyRef = useRef();
 
 	const renderReadReceipts = (message, isMyMessage) => {
 		return chat.people.map((person, index) => {
@@ -36,6 +39,9 @@ const ChatFeed = (props) => {
 			const message = messages[key];
 			const lastMessagekey = index === 0 ? null : keys[index - 1];
 			const isMyMessage = userName === message.sender.username;
+
+			//* scrolling to the bottom
+			dummyRef.current.scrollIntoView({ behavior: "smooth" });
 
 			return (
 				<div key={`msg_${index}`} style={{ width: "100%" }}>
@@ -73,13 +79,14 @@ const ChatFeed = (props) => {
 
 	return (
 		<div className="chat-feed">
-			<div className="chat-title">
+			<div className="chat-title-container">
+				<div className="chat-title">{chat.title}</div>
 				<div className="chat-subtitle">
-					{chat.people.map((person) => `${person.person.username} `)}
+					{chat.people.map((person) => ` ${person.person.username}`)}
 				</div>
 			</div>
 			{renderMessages()}
-			<div style={{ height: "100px" }}></div>
+			<div ref={dummyRef} style={{ height: "100px" }}></div>
 			<div className="message-form-container">
 				<MessageForm {...props} chatId={activeChat} />
 			</div>
