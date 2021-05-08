@@ -12,7 +12,6 @@ const App = () => {
 			projectID="d718f294-dc80-41f4-b578-368053082bc6"
 			userName={localStorage.getItem("username")}
 			userSecret={localStorage.getItem("password")}
-			renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
 		/>
 	);
 };

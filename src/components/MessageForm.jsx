@@ -5,11 +5,6 @@ import { sendMessage, isTyping } from "react-chat-engine";
 const MessageForm = (props) => {
 	//& destructuring
 	const { creds, chatId } = props;
-	const authObject = {
-		"Project-ID": props.projectID,
-		"User-Name": props.userName,
-		"User-Secret": props.userSecret,
-	};
 
 	//& states
 	const [value, setValue] = useState("");
@@ -18,6 +13,9 @@ const MessageForm = (props) => {
 		e.preventDefault();
 
 		const text = value.trim();
+
+		if (text === "" || text === " ")
+			return alert("Please type something to send a message");
 
 		if (text.length > 0);
 		sendMessage(creds, chatId, { text: text });
@@ -28,7 +26,7 @@ const MessageForm = (props) => {
 	//TODO isTyping
 	const onChangeHandler = (e) => {
 		setValue(e.target.value);
-		//isTyping(authObject, chatId);
+		isTyping(creds, chatId);
 	};
 
 	const onUploadHandler = (e) => {
