@@ -2,11 +2,13 @@
 import MyMessage from "./MyMessage";
 import TheirMessage from "./TheirMessage";
 import MessageForm from "./MessageForm";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ChatFeed = (props) => {
 	//~ destructuring
 	const { chats, activeChat, userName, messages } = props;
+
+	const [typer, setTyper] = useState(null);
 
 	//* current chat
 	const chat = chats && chats[activeChat];
@@ -89,9 +91,24 @@ const ChatFeed = (props) => {
 				</div>
 			</div>
 			{renderMessages()}
-			<div ref={dummyRef} style={{ height: "100px" }}></div>
+			<div
+				ref={dummyRef}
+				style={{
+					height: "100px",
+					paddingTop: "1vh",
+					paddingLeft: "1rem",
+				}}
+			>
+				{typer ? `${typer} is typing...` : null}
+			</div>
 			<div className="message-form-container">
-				<MessageForm {...props} chatId={activeChat} dummyRef={dummyRef} />
+				<MessageForm
+					{...props}
+					chatId={activeChat}
+					dummyRef={dummyRef}
+					typer={typer}
+					setTyper={setTyper}
+				/>
 			</div>
 			<div className="log-out" onClick={logout}>
 				Sign Out
